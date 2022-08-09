@@ -16,15 +16,19 @@ c.fillRect(
 const gravity = 0.5
 
 class Sprite { 
-    constructor({position, velocity, color= 'red'}){
+    constructor({position, velocity, color= 'red', offset}){
         this.position = position
         this.velocity = velocity
         this.width = 50
         this.height = 150
         this.lastKey
         this.attackBox = {
-            position: this.position 
-            ,width: 100
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            }, 
+            offset,
+            width: 100
             ,height: 50
         }
         this.color = color
@@ -38,29 +42,43 @@ class Sprite {
 
 
         //attackBox
-        c.fillStyle = 'yellow'
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height )
+        if (this.isAttacking) {
+            c.fillStyle = 'yellow'
+            c.fillRect(
+                this.attackBox.position.x, 
+                this.attackBox.position.y, 
+                this.attackBox.width, 
+                this.attackBox.height      
+            )      
+        }
+        
             
     }
 
     update() {
         this.draw()
+        this.attackBox.position.x = this.position.x - this.attackBox.offset.x
+        this.attackBox.position.y = this.position.y
         
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
-        if (this.position.y + this.height + this.velocity.y >= canvas.height) {
+        if (
+            this.position.y + this.height + this.velocity.y >= canvas.height) 
+            {
             this.velocity.y = 0
             
         }else this.velocity.y += gravity
     }
 
-    attack(){
+    attack() {
         this.isAttacking = true
         setTimeout(() => {
             this.isAttacking = false
-            
-        }, 100);
+
+        }, 25)
     }
+
+    
 }
 
 
@@ -73,6 +91,10 @@ const player1 = new Sprite({
     velocity: {
         x: 0,
         y: 0
+    },
+    offset: {
+        x: 0,
+        Y: 0
     }
 })
 
@@ -90,6 +112,11 @@ const player2 = new Sprite({
         y: 0
     }
     ,color: 'skyblue'
+
+    ,offset: {
+        x: 50,
+        y: 0
+    }
 })
 
 
@@ -125,6 +152,16 @@ const keys = {
 
 }
 
+function rectangularCollision({rectangle1,rectangle2}) {
+    return(
+        rectangle1.attackBox.position.x + rectangle1.attackBox.width >= 
+        rectangle2.position.x && rectangle1.attackBox.position.x <= 
+        rectangle2.position.x + rectangle2.width && 
+        rectangle1.attackBox.position.y + rectangle1.attackBox.height >= 
+        rectangle2.position.y && rectangle1.attackBox.position.y <= 
+        rectangle2.position.y + rectangle2.height
+    )
+}
 
 function animate() { 
     window.requestAnimationFrame(animate)
@@ -162,16 +199,13 @@ function animate() {
     //collision detection
 
     if (
-        player1.attackBox.position.x + player1.attackBox.width >= 
-        player2.position.x && player1.attackBox.position.x <= 
-        player2.position.x + player2.width &&
-         player1.attackBox.position.y + player1.attackBox.height 
-         >= player2.position.y && player1.attackBox.position.y 
-         <= player2.position.y + player2.height &&
-         player1.isAttacking
+          rectangularCollision({rectangle1:player1,
+            player2:player2}) && player1.isAttacking
         ) {
         console.log('bang!')
     }
+
+    
 
     
 }
@@ -194,9 +228,13 @@ window.addEventListener(
             case 'w':
                 player1.velocity.y = -20
             break
-            case 's':
-                player1.attack
+            case ' ':
+                player1.attack()
+                
             break
+
+            
+        
 
             
 
