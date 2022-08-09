@@ -42,7 +42,10 @@ class Sprite {
 
 
         //attackBox
-        if (this.isAttacking) {
+ less-bad-controls
+       // if (this.isAttacking) {
+
+       
             c.fillStyle = 'yellow'
             c.fillRect(
                 this.attackBox.position.x, 
@@ -50,7 +53,9 @@ class Sprite {
                 this.attackBox.width, 
                 this.attackBox.height      
             )      
-        }
+ less-bad-controls
+       // }
+
         
             
     }
@@ -154,12 +159,24 @@ const keys = {
 
 function rectangularCollision({rectangle1,rectangle2}) {
     return(
-        rectangle1.attackBox.position.x + rectangle1.attackBox.width >= 
-        rectangle2.position.x && rectangle1.attackBox.position.x <= 
-        rectangle2.position.x + rectangle2.width && 
-        rectangle1.attackBox.position.y + rectangle1.attackBox.height >= 
-        rectangle2.position.y && rectangle1.attackBox.position.y <= 
-        rectangle2.position.y + rectangle2.height
+ less-bad-controls
+        //rectangle1.attackBox.position.x + rectangle1.attackBox.width >= 
+        //rectangle2.position.x && rectangle1.attackBox.position.x <= 
+        //rectangle2.position.x + rectangle2.width && 
+        //rectangle1.attackBox.position.y + rectangle1.attackBox.height >= 
+        //rectangle2.position.y && rectangle1.attackBox.position.y <= 
+        //rectangle2.position.y + rectangle2.height
+
+
+
+        rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x  && 
+        
+        rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && 
+        
+        rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y &&       
+        
+        rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+
     )
 }
 
@@ -200,10 +217,21 @@ function animate() {
 
     if (
           rectangularCollision({rectangle1:player1,
-            player2:player2}) && player1.isAttacking
+ less-bad-controls
+           rectangle2:player2}) && player1.isAttacking
         ) {
-        console.log('bang!')
+            player1.isAttacking = false 
+            console.log('bang!')
     }
+
+    if (
+        rectangularCollision({rectangle1:player2,
+         rectangle2:player1}) && player2.isAttacking
+      ) {
+          player2.isAttacking = false 
+          console.log('pow!')
+  }
+
 
     
 
@@ -227,11 +255,22 @@ window.addEventListener(
             break
             case 'w':
                 player1.velocity.y = -20
+ less-bad-controls
+            break
+            case ' ':
+                player1.attack()
+                
+
             break
             case ' ':
                 player1.attack()
                 
             break
+
+            
+        
+
+            
 
             
         
@@ -249,6 +288,12 @@ window.addEventListener(
             break
             case 'ArrowUp':
                 player2.velocity.y = -20
+ less-bad-controls
+            break
+            case 'ArrowDown':
+                player2.attack()
+                
+
             break
         }
         console.log(event.key);
