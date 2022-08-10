@@ -42,10 +42,7 @@ class Sprite {
 
 
         //attackBox
- less-bad-controls
        // if (this.isAttacking) {
-
-       
             c.fillStyle = 'yellow'
             c.fillRect(
                 this.attackBox.position.x, 
@@ -53,9 +50,7 @@ class Sprite {
                 this.attackBox.width, 
                 this.attackBox.height      
             )      
- less-bad-controls
        // }
-
         
             
     }
@@ -159,16 +154,6 @@ const keys = {
 
 function rectangularCollision({rectangle1,rectangle2}) {
     return(
- less-bad-controls
-        //rectangle1.attackBox.position.x + rectangle1.attackBox.width >= 
-        //rectangle2.position.x && rectangle1.attackBox.position.x <= 
-        //rectangle2.position.x + rectangle2.width && 
-        //rectangle1.attackBox.position.y + rectangle1.attackBox.height >= 
-        //rectangle2.position.y && rectangle1.attackBox.position.y <= 
-        //rectangle2.position.y + rectangle2.height
-
-
-
         rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x  && 
         
         rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && 
@@ -176,7 +161,6 @@ function rectangularCollision({rectangle1,rectangle2}) {
         rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y &&       
         
         rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
-
     )
 }
 
@@ -217,7 +201,6 @@ function animate() {
 
     if (
           rectangularCollision({rectangle1:player1,
- less-bad-controls
            rectangle2:player2}) && player1.isAttacking
         ) {
             player1.isAttacking = false 
@@ -231,7 +214,6 @@ function animate() {
           player2.isAttacking = false 
           console.log('pow!')
   }
-
 
     
 
@@ -255,22 +237,11 @@ window.addEventListener(
             break
             case 'w':
                 player1.velocity.y = -20
- less-bad-controls
-            break
-            case ' ':
-                player1.attack()
-                
-
             break
             case ' ':
                 player1.attack()
                 
             break
-
-            
-        
-
-            
 
             
         
@@ -288,12 +259,10 @@ window.addEventListener(
             break
             case 'ArrowUp':
                 player2.velocity.y = -20
- less-bad-controls
             break
             case 'ArrowDown':
                 player2.attack()
                 
-
             break
         }
         console.log(event.key);
