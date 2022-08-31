@@ -1,0 +1,69 @@
+
+
+  <head>
+    <style>
+        *
+        {
+            box-sizing: border-box;
+        }
+    </style>
+  </head>  
+<body>
+    <!--container-->
+    <div style="position:relative; display:inline-block">
+        
+        <!--smaller container-->
+        <div style="position: absolute; 
+        display: flex; 
+        align-items: center; 
+        width: 100%;
+        padding: 20px;">
+
+            <!--player1-->
+            <div style="position:relative;height: 30px;width: 100%; display:flex; justify-content:flex-end">
+                <div 
+                style="background-color: yellow; height:30px; width: 100%"
+                ></div>
+                <div id="player1health" style="position: absolute;background: blue;top:0; right:0; bottom: 0; width:100%;"></div>
+
+            </div>
+
+            <!--timer-->
+            <div id="timer" style="background-color:crimson; 
+            width: 100px; 
+            height: 100px; 
+            flex-shrink:0;
+            display:flex;
+            justify-content:center;
+            align-items:center">10</div>
+
+            <!--player2-->
+            <div style="position:relative;height: 30px;width: 100%">
+                <div 
+                style="background-color: yellow; height:30px"
+                ></div>
+                <div id="player2health" style="position: absolute;background: blue;top:0; right:0; bottom: 0; left:0;"></div>
+
+            </div>
+            
+        </div>
+
+        <div id="displayText" style="position:absolute; 
+        color:white; 
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        top:0; 
+        right:0; 
+        bottom: 0; 
+        left:0;
+        display:none;">tie</div>
+        <canvas></canvas>
+    </div>
+    
+    <script src="/js/utils.js"></script>
+    <script src="/js/classes.js"></script>
+    
+    <script src="/gg.js"></script>
+    
+</body>
