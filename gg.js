@@ -16,7 +16,6 @@ c.fillRect(
 const gravity = 0.5
 
 
-
 const background = new Sprite(
     {position: {
         x: 0,
@@ -24,9 +23,9 @@ const background = new Sprite(
     },
     imageSrc: './img/example2.png'
 
-}
-);
-const player1 = new fighter({
+})
+
+const player1 = new Fighter({
     position: {
         x: 0,
         y: 0
@@ -39,13 +38,13 @@ const player1 = new fighter({
     offset: {
         x: 0,
         Y: 0
-    }  
+    }
 })
 
 
 
 
-const player2 = new fighter({
+const player2 = new Fighter({
     position: {
         x: 200,
         y: 200
@@ -59,8 +58,8 @@ const player2 = new fighter({
 
     ,offset: {
         x: 50,
-        y: -150
-    }   
+        y: 0
+    }
 })
 
 
@@ -96,60 +95,9 @@ const keys = {
 
 }
 
-function rectangularCollision({rectangle1,rectangle2}) {
-    return(
-        
-        rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x  && 
-        
-        rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && 
-        
-        rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y &&       
-        
-        rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
-    )
-}
 
 
-//adding code from other project
-
-function determineWinner({player1,player2,timerId}) {
-    clearTimeout(timerId)
-    document.querySelector('#displayText').style.display ='flex'
-    if (player1.health ===player2.health) {
-        document.querySelector('#displayText').innerHTML = 'Tie'
-    }
-    else if (player1.health > player2.health) {
-        document.querySelector('#displayText').innerHTML = 'player1 Wins!'
-    }
-    else if (player1.health < player2.health) {
-        document.querySelector('#displayText').innerHTML = 'player2 Wins!'
-    }
-    
-}
-
-let timer = 60
-let timerId
-function decreeaseTimer() {
-    
-    if (timer > 0) {
-        timerId =setTimeout(decreeaseTimer, 1000)
-        timer--
-        document.querySelector('#timer').innerHTML = timer
-    }
-
-    if (timer === 0) {
-        determineWinner({player1,player2,timerId})
-    }
-} 
-
-
-
-
-
-
-
-
-//end of copied code
+decreeaseTimer()
 
 function animate() { 
     window.requestAnimationFrame(animate)
@@ -192,17 +140,23 @@ function animate() {
            rectangle2:player2}) && player1.isAttacking
         ) {
             player1.isAttacking = false 
-            console.log('bang!')
-    }
+            console.log('bang')
+            player2.health -=2
+            document.querySelector('#player2health').style.width = player2.health + '%'
+        }
 
     if (
         rectangularCollision({rectangle1:player2,
          rectangle2:player1}) && player2.isAttacking
       ) {
           player2.isAttacking = false 
-          console.log('pow!')
-  }
+          player1.health -=2
+          document.querySelector('#player1health').style.width = player1.health + '%'
+        }
 
+        if(player1.health<=0 || player2.health<=0){
+            determineWinner({player1,player2,timerId})
+        }
     
 
     

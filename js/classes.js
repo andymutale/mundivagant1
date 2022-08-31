@@ -1,4 +1,3 @@
-
 class Sprite { 
     constructor({position, imageSrc}){
         this.position = position
@@ -6,29 +5,19 @@ class Sprite {
         this.height = 150
         this.image = new Image()
         this.image.src = imageSrc
-        
-
     }
 
     draw() {
-        c.drawImage(this.image,this.position.x, this.position.y)
+        c.drawImage(this.image, this.position.x, this.position.y)
     }
 
     update() {
         this.draw()
-    }
-
-    
-
-    
+    }   
 }
 
-
-
-//player sprites
-
 class Fighter { 
-    constructor({position, velocity, color= 'red', offset}){
+    constructor({position, velocity, color= 'red', offset, health}){
         this.position = position
         this.velocity = velocity
         this.width = 50
@@ -55,7 +44,7 @@ class Fighter {
 
 
         //attackBox
-       // if (this.isAttacking) {
+        if (this.isAttacking) {
             c.fillStyle = 'yellow'
             c.fillRect(
                 this.attackBox.position.x, 
@@ -63,7 +52,7 @@ class Fighter {
                 this.attackBox.width, 
                 this.attackBox.height      
             )      
-       // }
+        }
         
             
     }
@@ -76,7 +65,7 @@ class Fighter {
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
         if (
-            this.position.y + this.height + this.velocity.y >= canvas.height) 
+            this.position.y + this.height + this.velocity.y >= canvas.height -10) 
             {
             this.velocity.y = 0
             
