@@ -1,0 +1,38 @@
+
+
+
+
+div.container {
+    position: relative;
+    display: inline-flex;
+    
+}
+
+div.sub-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+div.player1 {
+    
+    background-color: yellow;
+    height: 30px;
+    width: 100%;
+}
+
+div.timer {
+    background-color: darkred;
+    height: 100px;
+    width: 100px;
+    flex-shrink: 0;
+}
+
+div.player2 {
+    
+    background-color: yellow;
+    height: 30px;
+    width: 100%;
+}
